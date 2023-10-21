@@ -1,11 +1,13 @@
 # userSrv
 Storing information of the users
+TODO: cleanup this file
+TODO: write unitests for the validators as well
 
 ### userSrv APIs
 
-| POST   | localhost:9000/users/signup           | Create the user entry                                                      |
-| GET    | localhost:9000/users                  | List the users                                                             |
-| GET    | localhost:9000/users/:user_id         | Get the user from user_id                                                  |
+| POST   | localhost:9000/users/signup           | Create the user entry
+| GET    | localhost:9000/users                  | List the users
+| GET    | localhost:9000/users/:user_id         | Get the user from user_id
 
 ### how to build the app
 go to project folder in mac
@@ -17,6 +19,10 @@ mv main ./bin/users
 Migrate to project folder
 There is already a "users" binary in bin folder
 Run with command : ./bin/users
+
+### how to run the unitests
+Migrate to project folder
+Run the test with command : go test . -v
 
 ### Input
 {

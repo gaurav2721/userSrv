@@ -1,55 +1,70 @@
 # userSrv
 Storing information of the users
 TODO: cleanup this file
-TODO: write unitests for the validators as well
+TODO: write up the WHY of the programming answer
+
+### How to run this 
+1. Migrate to userSrv folder
+2. Run "./runapp.zsh"
+3. Alternatively you can simply run "go run main.go"
+4. The app starts to listen for requests on port 9000 by default
+5. Download Postman desktop agent 
+6. From Postman from Web Browser run the following apis
 
 ### userSrv APIs
 
-| POST   | localhost:9000/users/signup           | Create the user entry
-| GET    | localhost:9000/users                  | List the users
-| GET    | localhost:9000/users/:user_id         | Get the user from user_id
+1.
+| POST   | localhost:9000/users/signup           | Set the user object
+Input :
+{
+    "id": "1",
+    "name": "gaurav",
+    "signup_time": 1234566
+}
+Expected Output :
+Response HTTP Status Code : 200
 
-### how to build the app
-go to project folder in mac
-run the following commands
-go build main.go
-mv main ./bin/users
-
-### how to run the app
-Migrate to project folder
-There is already a "users" binary in bin folder
-Run with command : ./bin/users
-
-### how to run the unitests
-Migrate to project folder
-Run the test with command : go test . -v
-
-### Input
+2.
+| GET    | localhost:9000/users/:user_id         | Get the user object from user_id
+Input : mention whatever user_id you want in url for eg "localhost:9000/users/1"
+Expected Output :
 {
     "id": "1",
     "name": "gaurav",
     "signup_time": 1234566
 }
 
+3.
+| GET    | localhost:9000/users                  | Lists all the users
+Input : Nothing
+Expected Output : array of users present for eg 
+[
+    {
+        "id": "1",
+        "name": "gaurav",
+        "signup_time": 1234566
+    },
+    {
+        "id": "2",
+        "name": "saurav",
+        "signup_time": 1234566
+    }
+]
 
-The requirements are 
-
-Rest Apis :(correctly validated and the response status code must match the error type , validation and error handling , return error as well , errors should have some reference to the function call)
-1. POST {{base_url}/users} : body contains a user Object Json
-2. GET  {{base_url}/users/:user_id} : returns a user object
-3. GET  {{base_url}/users} : lists all the users // this is bonus , we should take care of listing also and pagination also
-
-write proper covering tests , validation and error handling 
-error handlers can be put in a separte file
-
-BONUS
-requires basic authentication for any operation(the credentials can be hardcoded for sake of testing)
-the listening port of the server can be configured with command line argument 
-
-// reference on how to run and test the app
+### how to run the unitests
+1. Migrate to project folder
+2. Run "./runtests.zsh"
+3. Alternatively you can run the test with command : go test . -v
 
 
-We are going to use 
-- NoSql database (mongo db : why ? - easily scalable , we only require basic queries , there are know relations )
+### General Module Info
+1. Used "gin" framework for writing Apis : Chose this since it provides a intuitive api and built in functionality
+2. Used "testing" framework for testing
+3. Used "github.com/go-playground/validator/v10" for validation
 
-// signup is same as setUser
+### Improvements to be made in future
+1. Add basic Authentication
+2. Inject listening port from the command line
+3. Currently we are storing the user objects in memory we can use NoSql database for storing this in a persistent manner as there is no relational data and queries are simple 
+4. Add pagination in the GetUsers Api 
+

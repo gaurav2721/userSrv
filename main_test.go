@@ -14,11 +14,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSignUp(t *testing.T) {
+var server *gin.Engine = SetUp()
 
+func SetUp() *gin.Engine {
 	server := gin.Default()
-
 	database.DbI = database.InitMemoryDb()
+	server.POST("/users/signup", controllers.SignUp())
+	server.GET("/users/:user_id", controllers.GetUser())
+	server.GET("/users", controllers.GetUsers())
+	return server
+}
+
+func TestSignUp(t *testing.T) {
 
 	input := models.User{
 		Id:         "1",
@@ -26,8 +33,6 @@ func TestSignUp(t *testing.T) {
 		SignupTime: 1234567,
 	}
 	bodyReq, _ := json.Marshal(input)
-
-	server.POST("/users/signup", controllers.SignUp())
 
 	req, _ := http.NewRequest(http.MethodPost, "/users/signup", bytes.NewBuffer(bodyReq))
 	resp := httptest.NewRecorder()
@@ -40,32 +45,35 @@ func TestSignUp(t *testing.T) {
 	assert.Equal(t, 200, resp.Result().StatusCode)
 }
 
-func TestGetUser(t *testing.T) {
+// this tests a get when user is present in db
+func TestGetPresentUser(t *testing.T) {
+	//adding the user into the db
+	input := models.User{
+		Id:         "1",
+		Name:       "Gaurav",
+		SignupTime: 1234567,
+	}
+	bodyReq, _ := json.Marshal(input)
 
-	server := gin.Default()
-
-	database.DbI = database.InitMemoryDb()
-
-	server.GET("/users/:user_id", controllers.GetUser())
-
-	req, _ := http.NewRequest(http.MethodGet, "/users/1", nil)
+	req, _ := http.NewRequest(http.MethodPost, "/users/signup", bytes.NewBuffer(bodyReq))
 	resp := httptest.NewRecorder()
+
+	server.ServeHTTP(resp, req)
+
+	//making request to fetch the user
+
+	req, _ = http.NewRequest(http.MethodGet, "/users/1", nil)
+	resp = httptest.NewRecorder()
 
 	server.ServeHTTP(resp, req)
 
 	//testing logs + assertion
 	t.Log(resp.Result().StatusCode)
 	t.Log(resp.Body)
-	assert.Equal(t, 500, resp.Result().StatusCode)
+	assert.Equal(t, 200, resp.Result().StatusCode)
 }
 
 func TestGetAllUser(t *testing.T) {
-
-	server := gin.Default()
-
-	database.DbI = database.InitMemoryDb()
-
-	server.GET("/users", controllers.GetUsers())
 
 	req, _ := http.NewRequest(http.MethodGet, "/users", nil)
 	resp := httptest.NewRecorder()

@@ -1,0 +1,3 @@
+go build main.go
+mv main ./bin/users
+./bin/users

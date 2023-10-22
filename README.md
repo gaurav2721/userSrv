@@ -3,8 +3,9 @@ Storing information of the users
 TODO: cleanup this file
 TODO: write up the WHY of the programming answer
 
-### How to run this 
+### How to run this app
 1. Migrate to userSrv folder
+2. Run ---> ./buildapp.zsh to build the app
 2. Run ---> ./runapp.zsh "<port_number>" for eg  ./runapp.zsh "9000"
 3. Alternatively you can simply run --->  go run main.go <port_number> for eg  go run main.go 9000
 4. The app starts to listen for requests on port 9000 by default if no port number is provided

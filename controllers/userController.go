@@ -26,7 +26,7 @@ func SignUp() gin.HandlerFunc {
 
 		validationErr := helpers.ValidateUser(user)
 		if validationErr != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()}) //TODO check this if error is suppossed to be this only
+			c.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
 			return
 		}
 
@@ -41,7 +41,6 @@ func SignUp() gin.HandlerFunc {
 	}
 }
 
-// TODO: Have to implement pagination
 func GetUsers() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var _, cancel = context.WithTimeout(context.Background(), 100*time.Second)

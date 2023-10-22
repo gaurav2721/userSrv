@@ -5,9 +5,9 @@ TODO: write up the WHY of the programming answer
 
 ### How to run this 
 1. Migrate to userSrv folder
-2. Run "./runapp.zsh"
-3. Alternatively you can simply run "go run main.go"
-4. The app starts to listen for requests on port 9000 by default
+2. Run ---> ./runapp.zsh "<port_number>" for eg  ./runapp.zsh "9000"
+3. Alternatively you can simply run --->  go run main.go <port_number> for eg  go run main.go 9000
+4. The app starts to listen for requests on port 9000 by default if no port number is provided
 5. Download Postman desktop agent 
 6. From Postman from Web Browser run the following apis
 
@@ -53,7 +53,7 @@ Expected Output : array of users present for eg
 
 ### how to run the unitests
 1. Migrate to project folder
-2. Run "./runtests.zsh"
+2. Run -->   ./runtests.zsh
 3. Alternatively you can run the test with command : go test . -v
 
 
@@ -64,7 +64,6 @@ Expected Output : array of users present for eg
 
 ### Improvements to be made in future
 1. Add basic Authentication
-2. Inject listening port from the command line
 3. Currently we are storing the user objects in memory we can use NoSql database for storing this in a persistent manner as there is no relational data and queries are simple 
 4. Add pagination in the GetUsers Api 
 

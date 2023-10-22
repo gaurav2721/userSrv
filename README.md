@@ -66,7 +66,7 @@ Response HTTP Status Code : 200
 ### how to run the unitests
 1. Migrate to project folder
 2. Run -->   ./runtests.zsh
-3. Alternatively you can run the test with command : go test . -v
+3. Alternatively you can run the test with command : go test ./... -v
 
 
 ### General Module Info #WHY
